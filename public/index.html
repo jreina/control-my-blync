@@ -50,7 +50,7 @@
             console.log(r, g, b);
             fetch('/set-color', {
                 method: 'POST',
-                body: JSON.stringify({ color: [0, 0, 255] }),
+                body: JSON.stringify({ color: [r,g,b] }),
                 headers: {
                     'Content-Type': 'application/json'
                 }
