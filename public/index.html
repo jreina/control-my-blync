@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Control my blync</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <span class="navbar-brand mb-0 h1">Control My Blync-Light</span>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="form">
+                    <div class="form-group">
+                        <label for="r">R</label>
+                        <input class="form-control" type="number" id="r" name="r">
+                    </div>
+                    <div class="form-group">
+                        <label for="g">G</label>
+                        <input class="form-control" type="number" id="g" name="g">
+                    </div>
+                    <div class="form-group">
+                        <label for="B">B</label>
+                        <input class="form-control" type="number" id="b" name="b">
+                    </div>
+                </div>
+                <button class="btn btn-primary" id="set">Set</button>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        let button = document.getElementById('set');
+
+        button.onclick = () => {
+            let r = document.getElementById('r').value;
+            let g = document.getElementById('g').value;
+            let b = document.getElementById('b').value;
+            console.log(r, g, b);
+            r = parseInt(r);
+            g = parseInt(g);
+            b = parseInt(b);
+            console.log(r, g, b);
+            fetch('/set-color', {
+                method: 'POST',
+                body: JSON.stringify({ color: [0, 0, 255] }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(console.log);
+        }
+    </script>
+</body>
+
+</html>
