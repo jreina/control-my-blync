@@ -5,6 +5,8 @@ const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
+const port = process.env.PORT || 8080;
+
 app.use(express.json());
 
 app.use(express.static('public'));
@@ -19,6 +21,6 @@ app.post('/set-color', function (req, res) {
     }
 });
 
-server.listen(8080, function () {
-    console.log('listening on ' + 8080);
+server.listen(port, function () {
+    console.log('listening on ' + port);
 })
