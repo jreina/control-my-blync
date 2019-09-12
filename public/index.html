@@ -8,6 +8,15 @@
     <title>Control my blync</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+    .color-picker {
+        display: block;
+        width: 100%;
+        padding: 100px 50px;
+        text-align: center;
+        font-size: 2.2rem;
+    }
+    </style>
 </head>
 
 <body>
@@ -17,40 +26,19 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <div class="form">
-                    <div class="form-group">
-                        <label for="r">R</label>
-                        <input class="form-control" type="number" id="r" name="r">
-                    </div>
-                    <div class="form-group">
-                        <label for="g">G</label>
-                        <input class="form-control" type="number" id="g" name="g">
-                    </div>
-                    <div class="form-group">
-                        <label for="B">B</label>
-                        <input class="form-control" type="number" id="b" name="b">
-                    </div>
-                </div>
-                <button class="btn btn-primary" id="set">Set</button>
+                    <input class="color-picker jscolor" value="ab2567" onchange="handleChange(this.jscolor.rgb)">
             </div>
         </div>
-
     </div>
+    <script src="/jscolor.js"></script>
     <script>
+
         let button = document.getElementById('set');
 
-        button.onclick = () => {
-            let r = document.getElementById('r').value;
-            let g = document.getElementById('g').value;
-            let b = document.getElementById('b').value;
-            console.log(r, g, b);
-            r = parseInt(r);
-            g = parseInt(g);
-            b = parseInt(b);
-            console.log(r, g, b);
+        function handleChange(color) {
             fetch('/set-color', {
                 method: 'POST',
-                body: JSON.stringify({ color: [r,g,b] }),
+                body: JSON.stringify({ color }),
                 headers: {
                     'Content-Type': 'application/json'
                 }
