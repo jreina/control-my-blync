@@ -19,6 +19,6 @@ app.post('/set-color', function (req, res) {
     }
 });
 
-server.listen(4000, function () {
-    console.log('listening on ' + 4000);
+server.listen(80, function () {
+    console.log('listening on ' + 80);
 })
