@@ -141,6 +141,7 @@
         let button = document.getElementById('set');
 
         function handleChange(color) {
+            clearActives();
             fetch('/set-color', {
                 method: 'POST',
                 body: JSON.stringify({ color }),
