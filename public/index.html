@@ -9,13 +9,94 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style>
-    .color-picker {
-        display: block;
-        width: 100%;
-        padding: 100px 50px;
-        text-align: center;
-        font-size: 2.2rem;
-    }
+        .color-picker {
+            display: block;
+            width: 100%;
+            padding: 100px 50px;
+            text-align: center;
+            font-size: 2.2rem;
+        }
+
+        .party-mode.active {
+            animation:infinite linear .6s party-mode;
+        }
+
+        .police-mode.active {
+            animation:infinite linear .2s police-mode;
+        }
+
+        .mood-mode.active {
+            animation:infinite linear 60s mood-mode;
+        }
+
+        @keyframes police-mode {
+            50% {
+                background-color: red;
+            }
+            to {
+                background-color: blue;
+            }
+        }
+
+        @keyframes party-mode{
+            14% {
+                background-color: violet;
+            }
+
+            28% {
+                background-color: red;
+            }
+
+            42% {
+                background-color: orange;
+            }
+
+            56% {
+                background-color: yellow;
+            }
+
+            70% {
+                background-color: green;
+            }
+
+            84% {
+                background-color: blue;
+            }
+
+            to {
+                background-color: indigo;
+            }
+        }
+
+        @keyframes mood-mode{
+            14% {
+                background-color: skyblue;
+            }
+
+            28% {
+                background-color: blue;
+            }
+
+            42% {
+                background-color: purple;
+            }
+
+            56% {
+                background-color: violet;
+            }
+
+            70% {
+                background-color: red;
+            }
+
+            84% {
+                background-color: greenyellow;
+            }
+
+            to {
+                background-color: green;
+            }
+        }
     </style>
 </head>
 
@@ -26,7 +107,31 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                    <input class="color-picker jscolor" value="ab2567" onchange="handleChange(this.jscolor.rgb)">
+                <h2 class="text-center">Presets</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-dark btn-block party-mode" onclick="handlePatternClick(this, 'party')">Party</button></div>
+            <div class="col">
+                <button class="btn btn-dark btn-block police-mode" onclick="handlePatternClick(this, 'police')">Police</button></div>
+            <div class="col">
+                <button class="btn btn-dark btn-block mood-mode" onclick="handlePatternClick(this, 'mood')">Mood</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-center py-3">
+                &mdash; OR &mdash;
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h2 class="text-center">Solid Color</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <input class="color-picker jscolor" value="ab2567" onchange="handleChange(this.jscolor.rgb)">
             </div>
         </div>
     </div>
@@ -43,6 +148,22 @@
                     'Content-Type': 'application/json'
                 }
             }).then(console.log);
+        }
+
+        function handlePatternClick(el, pattern) {
+            clearActives();
+            el.classList.add('active');
+            fetch('/set-pattern', {
+                method: 'POST',
+                body: JSON.stringify({ pattern }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(console.log);
+        }
+
+        function clearActives() {
+            document.querySelectorAll('.active').forEach(el => el.classList.remove('active'));
         }
     </script>
 </body>

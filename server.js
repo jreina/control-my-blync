@@ -14,8 +14,18 @@ app.use(express.static('public'));
 app.post('/set-color', function (req, res) {
     const valid = _.has(req.body, 'color') && Array.isArray(req.body.color);
     if (valid) {
-        io.send(JSON.stringify(req.body));
+        io.emit('color', JSON.stringify(req.body));
         res.json('Setting color to ' + req.body.color);
+    } else {
+        res.status(500).json('Invalid request');
+    }
+});
+
+app.post('/set-pattern', function (req, res) {
+    const valid = _.has(req.body, 'pattern') && _.isString(req.body.pattern);
+    if (valid) {
+        io.emit('pattern', JSON.stringify(req.body));
+        res.json('Setting pattern to ' + req.body.pattern);
     } else {
         res.status(500).json('Invalid request');
     }
